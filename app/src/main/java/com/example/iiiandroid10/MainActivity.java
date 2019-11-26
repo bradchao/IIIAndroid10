@@ -86,10 +86,11 @@ public class MainActivity extends AppCompatActivity {
                 dd.put("Name", row.getString("Name"));
                 dd.put("Address", row.getString("Address"));
                 dd.put("Tel", row.getString("Tel"));
-                //dd.put("HostWords", row.getString("HostWords"));
-                //dd.put("FoodFeature", row.getString("FoodFeature"));
+                dd.put("HostWords", row.getString("HostWords"));
+                dd.put("FoodFeature", row.getString("FoodFeature"));
                 dd.put("Coordinate", row.getString("Coordinate"));
-                //dd.put("PicURL", row.getString("PicURL"));
+                dd.put("PicURL", row.getString("PicURL"));
+                dd.put("Heart", "xx");  // ok , xx
                 data.add(dd);
             }
             myAdapter.notifyDataSetChanged();
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
             View view = inflater.inflate(R.layout.item, null);
 
@@ -136,7 +137,15 @@ public class MainActivity extends AppCompatActivity {
             address.setText(data.get(position).get("Address"));
 
             ImageView heart = view.findViewById(R.id.item_heart);
-            heart.setImageResource(position%4==0?R.drawable.heart:R.drawable.heart_no);
+            heart.setImageResource(data.get(position).get("Heart").equals("ok")?R.drawable.heart:R.drawable.heart_no);
+            heart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    data.get(position).put("Heart", data.get(position).get("Heart").equals("ok")?"xx":"ok");
+                    ((ImageView)v).setImageResource(data.get(position).get("Heart").equals("ok")?R.drawable.heart:R.drawable.heart_no);
+            //                    Log.v("brad", "pos:" + position);
+                }
+            });
 
             return view;
         }
