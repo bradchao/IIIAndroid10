@@ -3,11 +3,13 @@ package com.example.iiiandroid10;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -103,6 +105,18 @@ public class MainActivity extends AppCompatActivity {
     private void initListView(){
         myAdapter = new MyAdapter();
         listView.setAdapter(myAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                gotoDetail(position);
+            }
+        });
+    }
+
+    private void gotoDetail(int index){
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("data", data.get(index));   // Serializable
+        startActivity(intent);
     }
 
     private class MyAdapter extends BaseAdapter {
