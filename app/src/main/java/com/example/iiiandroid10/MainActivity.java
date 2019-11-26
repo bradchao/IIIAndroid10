@@ -18,16 +18,24 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private MyAdapter myAdapter;
     private RequestQueue queue;
+    private LinkedList<HashMap<String,String>> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        data = new LinkedList<>();
         queue = Volley.newRequestQueue(this);
         listView = findViewById(R.id.listView);
         initListView();
@@ -41,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.v("brad", response);
+                        parseJSON(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -50,6 +59,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         queue.add(request);
+    }
+
+    private void parseJSON(String json){
+        try{
+            JSONArray root = new JSONArray(json);
+            for (int i=0; i<root.length(); i++){
+                HashMap<String,String> dd = new HashMap<>();
+                JSONObject row = root.getJSONObject(i);
+                dd.put("ID", row.getString("ID"));
+                dd.put("Name", row.getString("Name"));
+                dd.put("Address", row.getString("Address"));
+                dd.put("Tel", row.getString("Tel"));
+                dd.put("HostWords", row.getString("HostWords"));
+                dd.put("FoodFeature", row.getString("FoodFeature"));
+                dd.put("Coordinate", row.getString("Coordinate"));
+                dd.put("PicURL", row.getString("PicURL"));
+                data.add(dd);
+            }
+        }catch (Exception e){
+            Log.v("brad", e.toString());
+        }
     }
 
     private void initListView(){
