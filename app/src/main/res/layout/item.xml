@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         >
         <ImageView
-            android:id="@+id/heart"
+            android:id="@+id/item_heart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="aaa aaa aaa  aaa"
-            android:layout_alignBottom="@id/heart"
+            android:layout_alignBottom="@id/item_heart"
             />
     </RelativeLayout>
 

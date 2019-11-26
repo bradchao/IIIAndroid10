@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 dd.put("PicURL", row.getString("PicURL"));
                 data.add(dd);
             }
+            myAdapter.notifyDataSetChanged();
         }catch (Exception e){
             Log.v("brad", e.toString());
         }
@@ -91,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 0;
+            return data.size();
         }
 
         @Override
@@ -106,7 +110,22 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return null;
+            LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+            View view = inflater.inflate(R.layout.item, null);
+
+            TextView name = view.findViewById(R.id.item_name);
+            name.setText(data.get(position).get("Name"));
+
+            TextView tel = view.findViewById(R.id.item_tel);
+            tel.setText(data.get(position).get("Tel"));
+
+            TextView address = view.findViewById(R.id.item_address);
+            address.setText(data.get(position).get("Address"));
+
+            ImageView heart = view.findViewById(R.id.item_heart);
+            heart.setImageResource(position%4==0?R.drawable.heart:R.drawable.heart_no);
+
+            return view;
         }
     }
 
