@@ -46,8 +46,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchRemoteData(){
+        String url1 = "http://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx";
+        String url2 = "http://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvAttractions.aspx";
+
         StringRequest request = new StringRequest(Request.Method.GET,
-                "http://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx",
+                url1,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -74,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
                 dd.put("Name", row.getString("Name"));
                 dd.put("Address", row.getString("Address"));
                 dd.put("Tel", row.getString("Tel"));
-                dd.put("HostWords", row.getString("HostWords"));
-                dd.put("FoodFeature", row.getString("FoodFeature"));
+                //dd.put("HostWords", row.getString("HostWords"));
+                //dd.put("FoodFeature", row.getString("FoodFeature"));
                 dd.put("Coordinate", row.getString("Coordinate"));
-                dd.put("PicURL", row.getString("PicURL"));
+                //dd.put("PicURL", row.getString("PicURL"));
                 data.add(dd);
             }
             myAdapter.notifyDataSetChanged();
