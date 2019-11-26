@@ -20,6 +20,7 @@ public class DetailActivity extends AppCompatActivity {
     private String id,name, addr, tel, hostwords, feature, latlng, picurl, heart;
     private ImageView img;
     private TextView content;
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,14 @@ public class DetailActivity extends AppCompatActivity {
         picurl = row.get("PicURL");
 
         img = findViewById(R.id.detail_img);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this, DispActivity.class);
+                //intent.putExtra("img", bitmap);
+                startActivity(intent);
+            }
+        });
         content = findViewById(R.id.detail_content);
 
         fetchRemoteImage();
@@ -48,6 +57,7 @@ public class DetailActivity extends AppCompatActivity {
         ImageRequest request = new ImageRequest(picurl, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
+                MainApp.bmp = response;
                 img.setImageBitmap(response);
             }
         }, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
