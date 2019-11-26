@@ -23,10 +23,24 @@
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>
-    <TextView
-        android:id="@+id/item_address"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        >
+        <ImageView
+            android:id="@+id/heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/heart_no"
+            />
+        <TextView
+            android:id="@+id/item_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="aaa aaa aaa  aaa"
+            android:layout_alignBottom="@id/heart"
+            />
+    </RelativeLayout>
 
 </LinearLayout>
