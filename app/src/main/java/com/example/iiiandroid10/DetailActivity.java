@@ -60,9 +60,15 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void gotoMap(View view) {
+
+        String[] temp = latlng.split(",");
+        double lat = Double.valueOf(temp[0]);
+        double lng = Double.valueOf(temp[1]);
+
+        Log.v("brad", lat + " x " + lng);
         Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("lat",0.0);
-        intent.putExtra("lng", 0.0);
+        intent.putExtra("lat",lat);
+        intent.putExtra("lng", lng);
         startActivity(intent);
     }
 }
